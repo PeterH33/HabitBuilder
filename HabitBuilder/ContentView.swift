@@ -25,7 +25,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var habitList = Habits() //This StateObject for the class of structs is damn important
+    @StateObject var habitList = Habits()
+    
     @State var showingAddHabit = false
     
     let columns = [
@@ -42,8 +43,8 @@ struct ContentView: View {
             }
             i += 1
         }
-        
     }
+    
     
     
     
@@ -51,43 +52,66 @@ struct ContentView: View {
         NavigationView {
             ScrollView{
             LazyVGrid(columns: columns) {
-                ForEach(habitList.habits) { item in
+                ForEach(habitList.habits) { habit in
                     
                     Button {
-                        //TODO add edit here
-                        upCount(id: item.id)
-                        print("\(item.currentCount)")
+                       //The button function is handled by .onTapGesture.
+//                        upCount(id: item.id)
+//                        print("\(item.currentCount)")
                         
                     } label: {
                         VStack {
                             VStack {
-                                Text(item.name)
+                                Text(habit.name)
                                     .font(.title)
                                     .foregroundColor(.primary)
                                     .background(.ultraThinMaterial)
                                 Spacer()
                                 HStack{
-                                    Text("\(item.currentCount) / \(item.goalCount)")
+                                    Text("\(habit.currentCount) / \(habit.goalCount)")
                                         .foregroundColor(.primary)
                                         .background(.ultraThinMaterial)
                                         .font(.title2)
                                 }
                             }
-                            
-                            
                             .padding(.vertical)
-                            .frame(maxWidth: .infinity, minHeight: 150)//Use the frame to make these things squares somehow
-                            .background(item.currentColor)
+                            .frame(maxWidth: .infinity, minHeight: 150)
+                            .background(habit.currentColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke()
+                            )
+                            .onTapGesture {
+                             
+                                upCount(id: habit.id)
+                                print("\(habit.currentCount)")
+                            }
+                            .onLongPressGesture(){
+                                print("Longpress")
+                                //add context menu for edit delete?
+                            }
+                            
                         }
+                    }
+                }//EndForEach
+                //TODO consider adding a button to add a tile here, that might work fine
+                Button{
+                    // add habit button
+                    showingAddHabit = true
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .frame(maxWidth: .infinity, minHeight: 150)
+                        .background(Color.gray)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke()
                         )
-                    }
-                }//EndForEach
-                //TODO consider adding a button to add a tile here, that might work fine
-                
+                }
+               // .padding(.vertical)
             }//End LazyVGrid
             .padding([.horizontal, .bottom])
             
@@ -109,7 +133,7 @@ struct ContentView: View {
             AddHabitView(habitList: habitList)
         }
         
-        .preferredColorScheme(.dark)
+  
     }//end body
 }
 

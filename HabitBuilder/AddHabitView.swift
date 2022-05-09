@@ -11,28 +11,28 @@ struct AddHabitView: View {
     @ObservedObject var habitList: Habits
     
     @State private var name = ""
-    @State private var perDayCount = 0
+    @State private var perDayCount = 1
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView{
             Form{
-                TextField("Name", text: $name)
+                TextField("Habit Name", text: $name)
                 
                 Section{
-                    Picker("Goal per day", selection: $perDayCount){
-                        ForEach(0..<12){
-                            Text($0, format: .number)
+                    Picker("How many times per day?", selection: $perDayCount){
+                        ForEach(1..<100){
+                            Text($0 - 1, format: .number)
                         }//end foreach
                     }//end picker
                     
                     .pickerStyle(.wheel)
                 } header: {
-                    Text("Goal per day")
+                    Text("How many times per day?")
                 }
             }//end form
-            .navigationTitle("Add new Habit")
+            .navigationTitle("Add a new Habit")
             .toolbar{
                 Button("Save"){
                     let item = Habit(name: name, goalCount: perDayCount, currentCount: 0)

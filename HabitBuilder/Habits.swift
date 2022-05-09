@@ -15,11 +15,8 @@ struct Habit: Identifiable, Codable{
     var goalCount : Int
     var currentCount : Int
     
-//    init(name: String, goalCount: Int, currentCount: Int){
-//        self.name = name
-//        self.goalCount = goalCount
-//        self.currentCount = currentCount
-//    }
+   
+    
     var colorRatio : Double{
         get{
             Double(currentCount)/Double(goalCount)
