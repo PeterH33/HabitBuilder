@@ -8,7 +8,7 @@
 //import SwiftUI
 //
 //struct EditHabitView: View {
-//    @ObservedObject var habitList: Habits
+//    @EnvironmentObject var habitList: Habits
 //    var id: UUID
 //    //Get a proper reference to the tile in question
 //    

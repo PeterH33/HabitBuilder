@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct AddHabitView: View {
-    @ObservedObject var habitList: Habits
+    
+    @EnvironmentObject var habitList: Habits
     
     @State private var name = ""
-    @State private var perDayCount = 1
+    @State private var perDayCount = 0
     
     @Environment(\.dismiss) var dismiss
     
@@ -23,7 +24,7 @@ struct AddHabitView: View {
                 Section{
                     Picker("How many times per day?", selection: $perDayCount){
                         ForEach(1..<100){
-                            Text($0 - 1, format: .number)
+                            Text($0, format: .number)
                         }//end foreach
                     }//end picker
                     
@@ -35,8 +36,11 @@ struct AddHabitView: View {
             .navigationTitle("Add a new Habit")
             .toolbar{
                 Button("Save"){
-                    let item = Habit(name: name, goalCount: perDayCount, currentCount: 0)
-                    habitList.habits.append(item)
+                    let habit = Habit()
+                    habit.name = name
+                    habit.goalCount = perDayCount + 1
+                    habit.currentCount = 0
+                    habitList.habits.append(habit)
                     dismiss()
                 }
             }
@@ -46,6 +50,6 @@ struct AddHabitView: View {
 
 struct AddHabitView_Previews: PreviewProvider {
     static var previews: some View {
-        AddHabitView(habitList: Habits())
+        AddHabitView()
     }
 }

@@ -33,34 +33,16 @@ struct ContentView: View {
         GridItem(.adaptive(minimum: 150))
     ]
     
-    //There should be a more readable or elegant way to do this, but this is old style for and forcing. It works, just ugly
-    func upCount(id: UUID){
-        var i = 0
-        for habit in habitList.habits {
-            
-            if habit.id == id{
-                habitList.habits[i].currentCount += 1
-            }
-            i += 1
-        }
-    }
-    
-    
-    
     
     var body: some View {
         NavigationView {
             ScrollView{
-            LazyVGrid(columns: columns) {
-                ForEach(habitList.habits) { habit in
-                    
-                    Button {
-                       //The button function is handled by .onTapGesture.
-//                        upCount(id: item.id)
-//                        print("\(item.currentCount)")
-                        
-                    } label: {
-                        VStack {
+                LazyVGrid(columns: columns) {
+                    ForEach(habitList.habits) { habit in
+                        Button {
+                            //The button function is handled by .onTapGesture.
+                            //Button is kept intact to use the native animations for gestures
+                        } label: {
                             VStack {
                                 Text(habit.name)
                                     .font(.title)
@@ -83,41 +65,35 @@ struct ContentView: View {
                                     .stroke()
                             )
                             .onTapGesture {
-                             
-                                upCount(id: habit.id)
+                                habitList.increaceCount(habit)
+                              //  habit.increaceCount()
+                             //   upCount(id: habit.id)
                                 print("\(habit.currentCount)")
                             }
                             .onLongPressGesture(){
                                 print("Longpress")
                                 //add context menu for edit delete?
                             }
-                            
-                        }
+                        }//End tile
+                    }//EndForEach
+                    //Grey add habit tile button
+                    Button{
+                        showingAddHabit = true
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
+                            .frame(maxWidth: .infinity, minHeight: 150)
+                            .background(Color.gray)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke()
+                            )
                     }
-                }//EndForEach
-                //TODO consider adding a button to add a tile here, that might work fine
-                Button{
-                    // add habit button
-                    showingAddHabit = true
-                } label: {
-                    Image(systemName: "plus.circle")
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .frame(maxWidth: .infinity, minHeight: 150)
-                        .background(Color.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke()
-                        )
-                }
-               // .padding(.vertical)
-            }//End LazyVGrid
-            .padding([.horizontal, .bottom])
-            
-            
-            }//End wrapper group
-            
+                }//End LazyVGrid
+                .padding([.horizontal, .bottom])
+            }//end ScrollView
             .navigationTitle("Habit Builder")
             .toolbar {
                 ToolbarItem() {
@@ -127,13 +103,15 @@ struct ContentView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showingAddHabit){
+                AddHabitView()
+            }
             
         }//end NavigationView
-        .sheet(isPresented: $showingAddHabit){
-            AddHabitView(habitList: habitList)
-        }
+        .environmentObject(habitList)
         
-  
+        
+        
     }//end body
 }
 

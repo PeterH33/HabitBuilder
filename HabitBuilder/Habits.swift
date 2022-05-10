@@ -7,15 +7,11 @@
 
 import SwiftUI
 
-struct Habit: Identifiable, Codable{
+class Habit: Identifiable, Codable{
     var id = UUID()
-
-    
-    var name : String
-    var goalCount : Int
-    var currentCount : Int
-    
-   
+    var name : String = ""
+    var goalCount : Int = 1
+    var currentCount : Int = 0
     
     var colorRatio : Double{
         get{
@@ -27,29 +23,41 @@ struct Habit: Identifiable, Codable{
         get{
             Color.init(red: 1 - colorRatio, green:  colorRatio, blue: 0)
         }
-        
     }
-    
 }
 
 
-class Habits: ObservableObject{
-    init() {
-        if let savedItems = UserDefaults.standard.data(forKey: "Items") { //check for our "Items" key in userdefaults
-            if let decodedItems = try? JSONDecoder().decode([Habit].self, from: savedItems) {// make a decoder and have it do decoding
-                habits = decodedItems //assign that array to items
-                return
-            }
+@MainActor class Habits: ObservableObject{
+    @Published var habits: [Habit] {
+        didSet {
+            save()
         }
-
-        habits = [] // if fails, then just make items [] empty
     }
     
-    @Published var habits = [Habit]() {
-        didSet { //note, xcode seems to not want to auto complete didSet at all, watch out for that
-            if let encoded = try? JSONEncoder().encode(habits) {
-                UserDefaults.standard.set(encoded, forKey: "Items")
-            }
+    func increaceCount(_ habit: Habit) {
+        if habit.currentCount < habit.goalCount{
+            objectWillChange.send()
+            habit.currentCount += 1
+            save()
         }
     }
+    
+    let saveKey = "SavedData"
+    
+    private func save() {
+        FileManager.default.encode(habits, toFile: saveKey)
+    }
+    
+    init() {
+        if let decoded: [Habit] = FileManager.default.decode(saveKey){
+            habits = decoded
+            return
+        }
+        habits = []
+    }
+    
+    
+    
+    
+    
 }
