@@ -7,7 +7,15 @@
 
 import SwiftUI
 
-class Habit: Identifiable, Codable{
+class Habit: Identifiable, Codable, Hashable{
+    static func == (lhs: Habit, rhs: Habit) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     var id = UUID()
     var name : String = ""
     var goalCount : Int = 1
@@ -40,6 +48,10 @@ class Habit: Identifiable, Codable{
             habit.currentCount += 1
             save()
         }
+    }
+    
+    func addHabit(_ habit: Habit){
+        habits.append(habit)
     }
     
     let saveKey = "SavedData"

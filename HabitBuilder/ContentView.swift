@@ -28,6 +28,8 @@ struct ContentView: View {
     @StateObject var habitList = Habits()
     
     @State var showingAddHabit = false
+    @State var showingEditHabit = false
+    @State private var passHabit : Habit = Habit()
     
     let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -66,13 +68,12 @@ struct ContentView: View {
                             )
                             .onTapGesture {
                                 habitList.increaceCount(habit)
-                              //  habit.increaceCount()
-                             //   upCount(id: habit.id)
-                                print("\(habit.currentCount)")
                             }
                             .onLongPressGesture(){
                                 print("Longpress")
-                                //add context menu for edit delete?
+                                //add context menu for edit delete
+                                passHabit = habit
+                                showingEditHabit = true
                             }
                         }//End tile
                     }//EndForEach
@@ -105,6 +106,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingAddHabit){
                 AddHabitView()
+            }
+            .sheet(isPresented: $showingEditHabit){
+                EditHabitView(habit: passHabit)
             }
             
         }//end NavigationView
