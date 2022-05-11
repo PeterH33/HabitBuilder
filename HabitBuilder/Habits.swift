@@ -54,6 +54,10 @@ class Habit: Identifiable, Codable, Hashable{
         habits.append(habit)
     }
     
+    func removeHabit(_ habit: Habit){
+        habits.removeAll {$0 == habit}
+    }
+    
     let saveKey = "SavedData"
     
     private func save() {

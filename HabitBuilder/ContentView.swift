@@ -27,24 +27,28 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var habitList = Habits()
     
-    @State var showingAddHabit = false
-    @State var showingEditHabit = false
+    @State private var showingAddHabit = false
+    @State private var showingEditHabit = false
     @State private var passHabit : Habit = Habit()
     
-    let columns = [
+    private let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
     
+    //TODO add the method for the editHAbitView closure current step
     
     var body: some View {
         NavigationView {
             ScrollView{
                 LazyVGrid(columns: columns) {
                     ForEach(habitList.habits) { habit in
-                        Button {
-                            //The button function is handled by .onTapGesture.
-                            //Button is kept intact to use the native animations for gestures
-                        } label: {
+                        //for some reason this does not want to be a button, it causes odd issues. Navigation link works but it is a bit ugly. And for some reason I can not pass in a habit from the habitList.habits
+                        NavigationLink(destination: EditHabitView(habit: passHabit){
+                                                withAnimation{
+                                                    habitList.removeHabit(passHabit)
+                                                }
+                                            }, isActive: $showingEditHabit) {
+                                                //label closure
                             VStack {
                                 Text(habit.name)
                                     .font(.title)
@@ -107,9 +111,13 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddHabit){
                 AddHabitView()
             }
-            .sheet(isPresented: $showingEditHabit){
-                EditHabitView(habit: passHabit)
-            }
+//            .sheet(isPresented: $showingEditHabit){
+//                EditHabitView(habit: passHabit) {
+//                    withAnimation{
+//                        habitList.removeHabit(passHabit)
+//                    }
+//                }
+//            }
             
         }//end NavigationView
         .environmentObject(habitList)

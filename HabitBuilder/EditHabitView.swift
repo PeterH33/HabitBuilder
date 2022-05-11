@@ -10,7 +10,12 @@ import SwiftUI
 struct EditHabitView: View {
     @EnvironmentObject var habitList: Habits
     @Environment(\.dismiss) var dismiss
+    
     var habit: Habit
+    
+    
+    var removal: (() -> Void)? = nil
+   
     
     @State private var newName: String = ""
     @State private var newGoalCount: Int = 0
@@ -18,7 +23,8 @@ struct EditHabitView: View {
     var body: some View {
         NavigationView{
             Form{
-                TextField("Name", text: $newName)
+                Text("\(habit.name)")
+                TextField("New name", text: $newName)
 
                 Section{
                     Picker("How many times per day", selection: $newGoalCount){
@@ -29,26 +35,33 @@ struct EditHabitView: View {
 
                     .pickerStyle(.wheel)
                 } header: {
-                    Text("How many times per day")
+                    Text("Old number per day: \(habit.goalCount)")
                 }
             }//end form
-            .navigationTitle("Edit Habit")
-            .toolbar{
-                Button("Save"){
-                    let newHabit = Habit()
-                    newHabit.goalCount = newGoalCount
-                    newHabit.name = newName
-                    newHabit.currentCount = habit.currentCount
-                    habitList.addHabit(newHabit)
-                    habitList.habits.removeAll { $0 == habit}
-                    dismiss()
-                }
-            }
             .onAppear(){
                 newName = habit.name
-                newGoalCount = habit.goalCount
+                newGoalCount = habit.goalCount - 1
+            }
+            .navigationTitle("Edit Habit")
+            .toolbar{
+                ToolbarItemGroup(placement: .navigationBarTrailing){
+                    Button("Delete"){
+                        removal?()
+                        dismiss()
+                    }
+                    Button("Save"){
+                        let newHabit = Habit()
+                        newHabit.goalCount = newGoalCount + 1
+                        newHabit.name = newName
+                        newHabit.currentCount = 0
+                        habitList.addHabit(newHabit)
+                        removal?()
+                        dismiss()
+                    }
+                }
             }
         }//end navigation view
+        
     }//end body
 }
 
