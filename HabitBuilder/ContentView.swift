@@ -28,8 +28,11 @@ struct ContentView: View {
     @StateObject var habitList = Habits()
     
     @State private var showingAddHabit = false
-    @State private var showingEditHabit = false
-    @State private var passHabit : Habit = Habit()
+    //    @State private var showingEditHabit = false
+    //    @State private var passHabit : Habit = Habit()
+    
+    
+    @State private var selectedHabit: Habit? = nil
     
     private let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -42,13 +45,7 @@ struct ContentView: View {
             ScrollView{
                 LazyVGrid(columns: columns) {
                     ForEach(habitList.habits) { habit in
-                        //for some reason this does not want to be a button, it causes odd issues. Navigation link works but it is a bit ugly. And for some reason I can not pass in a habit from the habitList.habits
-                        NavigationLink(destination: EditHabitView(habit: passHabit){
-                                                withAnimation{
-                                                    habitList.removeHabit(passHabit)
-                                                }
-                                            }, isActive: $showingEditHabit) {
-                                                //label closure
+                        Button{} label: {
                             VStack {
                                 Text(habit.name)
                                     .font(.title)
@@ -75,9 +72,14 @@ struct ContentView: View {
                             }
                             .onLongPressGesture(){
                                 print("Longpress")
-                                //add context menu for edit delete
-                                passHabit = habit
-                                showingEditHabit = true
+                                selectedHabit = habit
+                            }
+                            .sheet(item: $selectedHabit) { habit in
+                                EditHabitView(habit: habit){
+                                    withAnimation{
+                                        habitList.removeHabit(habit)
+                                    }
+                                }
                             }
                         }//End tile
                     }//EndForEach
@@ -103,7 +105,7 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem() {
                     Button(action: {showingAddHabit.toggle()}){
-                        //showingGrid ? Image( systemName: "list.dash") : Image(systemName: "square.grid.2x2")
+                        
                         Image(systemName: "plus")
                     }
                 }
@@ -111,13 +113,6 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddHabit){
                 AddHabitView()
             }
-//            .sheet(isPresented: $showingEditHabit){
-//                EditHabitView(habit: passHabit) {
-//                    withAnimation{
-//                        habitList.removeHabit(passHabit)
-//                    }
-//                }
-//            }
             
         }//end NavigationView
         .environmentObject(habitList)
