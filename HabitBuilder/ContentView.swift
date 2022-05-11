@@ -111,7 +111,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingAddHabit){
-                AddHabitView()
+                EditHabitView()
             }
             
         }//end NavigationView

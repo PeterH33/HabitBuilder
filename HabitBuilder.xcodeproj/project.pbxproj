@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4C084D212827286F00A02567 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C084D202827286F00A02567 /* Habits.swift */; };
-		4CBFC28627B18523000A8226 /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFC28527B18523000A8226 /* AddHabitView.swift */; };
 		4CBFC28827B1A310000A8226 /* EditHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFC28727B1A310000A8226 /* EditHabitView.swift */; };
 		4CF03FC12829E65100CD1269 /* FileManagerDecodeEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF03FC02829E65100CD1269 /* FileManagerDecodeEncode.swift */; };
 		D04681CF27AC8DA500A75DA5 /* HabitBuilderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04681CE27AC8DA500A75DA5 /* HabitBuilderApp.swift */; };
@@ -20,7 +19,6 @@
 
 /* Begin PBXFileReference section */
 		4C084D202827286F00A02567 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
-		4CBFC28527B18523000A8226 /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		4CBFC28727B1A310000A8226 /* EditHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitView.swift; sourceTree = "<group>"; };
 		4CF03FC02829E65100CD1269 /* FileManagerDecodeEncode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerDecodeEncode.swift; sourceTree = "<group>"; };
 		D04681CB27AC8DA500A75DA5 /* HabitBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +64,6 @@
 				D04681D027AC8DA500A75DA5 /* ContentView.swift */,
 				4C084D202827286F00A02567 /* Habits.swift */,
 				4CF03FC02829E65100CD1269 /* FileManagerDecodeEncode.swift */,
-				4CBFC28527B18523000A8226 /* AddHabitView.swift */,
 				4CBFC28727B1A310000A8226 /* EditHabitView.swift */,
 				D04681D227AC8DA600A75DA5 /* Assets.xcassets */,
 				D04681D427AC8DA600A75DA5 /* Preview Content */,
@@ -153,7 +150,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04681D127AC8DA500A75DA5 /* ContentView.swift in Sources */,
-				4CBFC28627B18523000A8226 /* AddHabitView.swift in Sources */,
 				4CF03FC12829E65100CD1269 /* FileManagerDecodeEncode.swift in Sources */,
 				4C084D212827286F00A02567 /* Habits.swift in Sources */,
 				D0BD6AD927AC9A4100D49719 /* GridView.swift in Sources */,
