@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-//TODO: The Add Habit can and should be collapsed into the Edit view. Adding a habit is just editing a non existant view into a new one... right?
+
 
 struct EditHabitView: View {
     @EnvironmentObject var habitList: Habits
     @Environment(\.dismiss) var dismiss
     
-    //TODO: Make the passed in habit optional? And then unwrap it into the new variables if its there, and hide the delete button at the top if its not?
+    
     var habit: Habit?
     
     
@@ -26,8 +26,10 @@ struct EditHabitView: View {
     var body: some View {
         NavigationView{
             Form{
-                Text("\(newName)")
-                TextField("New name", text: $newName)
+               // Text("\(newName)")
+                TextField("Habit Name", text: $newName)
+                //TODO: Make this populate on appear, maybe start cursor here on new habit
+                //TODO: add a clear line button (lookup and add textfield notes to book)
 
                 Section{
                     Picker("How many times per day", selection: $newGoalCount){
@@ -38,7 +40,7 @@ struct EditHabitView: View {
 
                     .pickerStyle(.wheel)
                 } header: {
-                    Text("How many times per day: \(newGoalCount)")
+                    Text("How many times per day")
                 }
             }//end form
             .onAppear(){
@@ -53,11 +55,14 @@ struct EditHabitView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing){
                     if showingDelete{
                         Button("Delete"){
+                            //TODO: Add confirmation dialog
+                            //TODO: Change to a trash can icon
                             removal?()
                             dismiss()
                         }
                     }
                     Button("Save"){
+                        //TODO: This might be something to consider, what is the current gesture and icon language for saving a file? It seems like apple is mostly of the auto save all changes mindset.
                         let newHabit = Habit()
                         newHabit.goalCount = newGoalCount + 1
                         newHabit.name = newName

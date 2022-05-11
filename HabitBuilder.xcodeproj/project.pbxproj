@@ -14,7 +14,6 @@
 		D04681D127AC8DA500A75DA5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04681D027AC8DA500A75DA5 /* ContentView.swift */; };
 		D04681D327AC8DA600A75DA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D04681D227AC8DA600A75DA5 /* Assets.xcassets */; };
 		D04681D627AC8DA600A75DA5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D04681D527AC8DA600A75DA5 /* Preview Assets.xcassets */; };
-		D0BD6AD927AC9A4100D49719 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD6AD827AC9A4100D49719 /* GridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +25,6 @@
 		D04681D027AC8DA500A75DA5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D04681D227AC8DA600A75DA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D04681D527AC8DA600A75DA5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D0BD6AD827AC9A4100D49719 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +57,6 @@
 		D04681CD27AC8DA500A75DA5 /* HabitBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				D0BD6AD827AC9A4100D49719 /* GridView.swift */,
 				D04681CE27AC8DA500A75DA5 /* HabitBuilderApp.swift */,
 				D04681D027AC8DA500A75DA5 /* ContentView.swift */,
 				4C084D202827286F00A02567 /* Habits.swift */,
@@ -152,7 +149,6 @@
 				D04681D127AC8DA500A75DA5 /* ContentView.swift in Sources */,
 				4CF03FC12829E65100CD1269 /* FileManagerDecodeEncode.swift in Sources */,
 				4C084D212827286F00A02567 /* Habits.swift in Sources */,
-				D0BD6AD927AC9A4100D49719 /* GridView.swift in Sources */,
 				4CBFC28827B1A310000A8226 /* EditHabitView.swift in Sources */,
 				D04681CF27AC8DA500A75DA5 /* HabitBuilderApp.swift in Sources */,
 			);

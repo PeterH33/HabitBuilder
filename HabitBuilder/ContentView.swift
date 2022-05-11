@@ -4,22 +4,16 @@
 //
 //  Created by Peter Hartnett on 2/3/22.
 //
-//Challenge from 100DaysofSwift day 47
 
-//*Clear*At the very least, this means there should be a list of all activities they want to track, plus a form to add new activities – a title and description should be enough.
-//
-//*Clear* For a bigger challenge, tapping one of the activities should show a detail screen with the description. For a tough challenge – see the hints below! – make that detail screen contain how many times they have completed it, plus a button incrementing their completion count.
-//
-//*Clear* And if you want to make the app really useful, use Codable and UserDefaults to load and save all your data.
+//TODO: - make it reset at midnight each day, or on some other schedule specified in the edit for a habit
 
+//TODO: Make the colors more pleasant
+//TODO: add some bounce animation and a slide in to adding the tiles
+//TODO: make a small blip and haptic feedback to incrementing a tile
+//TODO: Add in the notification system
+//TODO: Make some system that spreads out the executions over a defined length fo the day
+//TODO: Visuals for clicks, some sort of rewards system.
 
-//TODO Personal challenge- make this so that on a long click we bring up the edit menu
-//TODO - make it reset at midnight each day, or on some other schedule specified in the edit for a habit
-//TODO Make it so a habit cant go past 100% completion? I mean thats not really an issue....
-//TODO Make the colors more pleasant
-//TODO add some bounce animation and a slide in to adding the tiles
-//TODO make a small blip and haptic feedback to incrementing a tile
-//TODO make the add a tile button into a tile itself.
 
 
 import SwiftUI
@@ -28,17 +22,11 @@ struct ContentView: View {
     @StateObject var habitList = Habits()
     
     @State private var showingAddHabit = false
-    //    @State private var showingEditHabit = false
-    //    @State private var passHabit : Habit = Habit()
-    
-    
     @State private var selectedHabit: Habit? = nil
     
     private let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
-    
-    //TODO add the method for the editHAbitView closure current step
     
     var body: some View {
         NavigationView {
@@ -105,7 +93,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem() {
                     Button(action: {showingAddHabit.toggle()}){
-                        
                         Image(systemName: "plus")
                     }
                 }
@@ -113,12 +100,8 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddHabit){
                 EditHabitView()
             }
-            
         }//end NavigationView
         .environmentObject(habitList)
-        
-        
-        
     }//end body
 }
 
