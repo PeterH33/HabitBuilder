@@ -22,12 +22,14 @@ struct EditHabitView: View {
     @State private var showingDelete = false
     @State private var newName: String = ""
     @State private var newGoalCount: Int = 0
+    @State private var showingDeleteConfirmation = false
     
     var body: some View {
         NavigationView{
             Form{
-               // Text("\(newName)")
+               
                 TextField("Habit Name", text: $newName)
+                    
                 //TODO: Make this populate on appear, maybe start cursor here on new habit
                 //TODO: add a clear line button (lookup and add textfield notes to book)
 
@@ -54,12 +56,12 @@ struct EditHabitView: View {
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing){
                     if showingDelete{
-                        Button("Delete"){
-                            //TODO: Add confirmation dialog
-                            //TODO: Change to a trash can icon
-                            removal?()
-                            dismiss()
+                        Button(action: {
+                           showingDeleteConfirmation = true
+                        }){
+                            Image(systemName: "trash")
                         }
+                        
                     }
                     Button("Save"){
                         //TODO: This might be something to consider, what is the current gesture and icon language for saving a file? It seems like apple is mostly of the auto save all changes mindset.
@@ -72,6 +74,13 @@ struct EditHabitView: View {
                         dismiss()
                     }
                 }
+            }
+            .confirmationDialog("Do you want to delete this habit?", isPresented: $showingDeleteConfirmation){
+                Button("Delete Habit", role: .destructive){
+                    removal?()
+                    dismiss()
+                }
+                
             }
         }//end navigation view
         
