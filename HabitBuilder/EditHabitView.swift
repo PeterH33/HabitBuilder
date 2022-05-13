@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+//This function helps to populate the TextField View and place the button on it when the view is first shown. It leaves the font blue, indicating that it can be clicked as well.
+struct TextFieldClearButton: ViewModifier {
+    @Binding var text: String
+    
+    func body(content: Content) -> some View {
+        HStack {
+            content
+            
+            if !text.isEmpty {
+                Button(
+                    action: { self.text = "" },
+                    label: {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundColor(.secondary)
+                    }
+                )
+            }
+        }
+    }
+}
 
 
 struct EditHabitView: View {
@@ -29,6 +49,7 @@ struct EditHabitView: View {
             Form{
                
                 TextField("Habit Name", text: $newName)
+                    .modifier(TextFieldClearButton(text: $newName))
                     
                 //TODO: Make this populate on appear, maybe start cursor here on new habit
                 //TODO: add a clear line button (lookup and add textfield notes to book)
