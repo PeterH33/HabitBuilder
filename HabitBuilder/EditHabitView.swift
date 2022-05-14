@@ -14,7 +14,6 @@ struct TextFieldClearButton: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content
-            
             if !text.isEmpty {
                 Button(
                     action: { self.text = "" },
@@ -39,10 +38,16 @@ struct EditHabitView: View {
     
     var removal: (() -> Void)? = nil
    
-    @State private var showingDelete = false
+    @State private var editingHabit = false
     @State private var newName: String = ""
     @State private var newGoalCount: Int = 0
     @State private var showingDeleteConfirmation = false
+    
+    //force field focus on new habit
+    enum Field {
+        case nameField
+    }
+    @FocusState private var focusedField : Field?
     
     var body: some View {
         NavigationView{
@@ -50,6 +55,7 @@ struct EditHabitView: View {
                
                 TextField("Habit Name", text: $newName)
                     .modifier(TextFieldClearButton(text: $newName))
+                    .focused($focusedField, equals: Field.nameField)
                     
                 //TODO: Make this populate on appear, maybe start cursor here on new habit
                 //TODO: add a clear line button (lookup and add textfield notes to book)
@@ -70,13 +76,16 @@ struct EditHabitView: View {
                 if let inHabit = habit{
                     newName = inHabit.name
                     newGoalCount = inHabit.goalCount - 1
-                    showingDelete = true
+                    editingHabit = true
+                } else {
+                    focusedField = .nameField
+                    //TODO: This isnt working to place focus on the name field on launch, perhaps delay the command by a second or so.
                 }
             }
-            .navigationTitle("Edit Habit")
+            .navigationTitle(editingHabit ? "Edit Habit" : "Add Habit")
             .toolbar{
                 ToolbarItemGroup(placement: .navigationBarTrailing){
-                    if showingDelete{
+                    if editingHabit{
                         Button(action: {
                            showingDeleteConfirmation = true
                         }){
