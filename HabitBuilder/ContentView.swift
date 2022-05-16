@@ -8,8 +8,7 @@
 //TODO: - make it reset at midnight each day, or on some other schedule specified in the edit for a habit
 
 //TODO: Make the colors more pleasant
-//TODO: add some bounce animation and a slide in to adding the tiles
-//TODO: make a small blip and haptic feedback to incrementing a tile
+//TODO: make a small blip or haptic feedback to incrementing a tile
 //TODO: Add in the notification system
 //TODO: Make some system that spreads out the executions over a defined length fo the day
 //TODO: Visuals for clicks, some sort of rewards system.

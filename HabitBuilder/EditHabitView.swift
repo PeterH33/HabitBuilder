@@ -32,9 +32,7 @@ struct EditHabitView: View {
     @EnvironmentObject var habitList: Habits
     @Environment(\.dismiss) var dismiss
     
-    
     var habit: Habit?
-    
     
     var removal: (() -> Void)? = nil
    
@@ -43,7 +41,6 @@ struct EditHabitView: View {
     @State private var newGoalCount: Int = 0
     @State private var showingDeleteConfirmation = false
     
-    //force field focus on new habit
     enum Field {
         case nameField
     }
@@ -55,11 +52,8 @@ struct EditHabitView: View {
                
                 TextField("Habit Name", text: $newName)
                     .modifier(TextFieldClearButton(text: $newName))
-                    .focused($focusedField, equals: Field.nameField)
+                    .focused($focusedField, equals: .nameField)
                     
-                //TODO: Make this populate on appear, maybe start cursor here on new habit
-                //TODO: add a clear line button (lookup and add textfield notes to book)
-
                 Section{
                     Picker("How many times per day", selection: $newGoalCount){
                         ForEach(1..<100){
@@ -78,8 +72,11 @@ struct EditHabitView: View {
                     newGoalCount = inHabit.goalCount - 1
                     editingHabit = true
                 } else {
-                    focusedField = .nameField
-                    //TODO: This isnt working to place focus on the name field on launch, perhaps delay the command by a second or so.
+                    //This focus is delayed because the sheet presentation animation prevents teh focus field from functioning for about 0.6 seconds
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.65)
+                    {
+                        focusedField = .nameField
+                    }
                 }
             }
             .navigationTitle(editingHabit ? "Edit Habit" : "Add Habit")
@@ -91,10 +88,9 @@ struct EditHabitView: View {
                         }){
                             Image(systemName: "trash")
                         }
-                        
                     }
                     Button("Save"){
-                        //TODO: This might be something to consider, what is the current gesture and icon language for saving a file? It seems like apple is mostly of the auto save all changes mindset.
+                        //TODO: Consider autosave vs intentional save. Apple seems to favor autosave, I prefer intentional save.
                         let newHabit = Habit()
                         newHabit.goalCount = newGoalCount + 1
                         newHabit.name = newName
