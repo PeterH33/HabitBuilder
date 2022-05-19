@@ -12,6 +12,7 @@
 //TODO: Add in the notification system
 //TODO: Make some system that spreads out the executions over a defined length fo the day
 //TODO: Visuals for clicks, some sort of rewards system.
+//TODO: App Icon
 
 
 
@@ -20,7 +21,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var habitList = Habits()
     
-    @State private var showingAddHabit = false
+    @State private var showingEditHabit = false
     @State private var selectedHabit: Habit? = nil
     
     private let columns = [
@@ -72,7 +73,7 @@ struct ContentView: View {
                     }//EndForEach
                     //Grey add habit tile button
                     Button{
-                        showingAddHabit = true
+                        showingEditHabit = true
                     } label: {
                         Image(systemName: "plus.circle")
                             .foregroundColor(.white)
@@ -91,12 +92,12 @@ struct ContentView: View {
             .navigationTitle("Habit Builder")
             .toolbar {
                 ToolbarItem() {
-                    Button(action: {showingAddHabit.toggle()}){
+                    Button(action: {showingEditHabit.toggle()}){
                         Image(systemName: "plus")
                     }
                 }
             }
-            .sheet(isPresented: $showingAddHabit){
+            .sheet(isPresented: $showingEditHabit){
                 EditHabitView()
             }
         }//end NavigationView
