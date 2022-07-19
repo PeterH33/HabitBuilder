@@ -6,26 +6,33 @@
 ////
 
 import SwiftUI
+import PeteBits
 
 //This function helps to populate the TextField View and place the button on it when the view is first shown. It leaves the font blue, indicating that it can be clicked as well.
-struct TextFieldClearButton: ViewModifier {
-    @Binding var text: String
-    
-    func body(content: Content) -> some View {
-        HStack {
-            content
-            if !text.isEmpty {
-                Button(
-                    action: { self.text = "" },
-                    label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundColor(.secondary)
-                    }
-                )
-            }
-        }
-    }
-}
+//This section is commented out to test inclusion in PeteBits package.
+//struct TextFieldClearButton: ViewModifier {
+//    @Binding var text: String
+//
+//    func body(content: Content) -> some View {
+//        HStack {
+//            content
+//            if !text.isEmpty {
+//                Button(
+//                    action: { self.text = "" },
+//                    label: {
+//                        Image(systemName: "x.circle.fill")
+//                            .foregroundColor(.secondary)
+//                    }
+//                )
+//            }
+//        }
+//    }
+//}
+//public extension View {
+//    func textFieldClearButton(text: Binding<String>) -> some View {
+//        return self.modifier(TextFieldClearButton(text: text))
+//    }
+//}
 
 
 struct EditHabitView: View {
@@ -51,8 +58,9 @@ struct EditHabitView: View {
             Form{
                
                 TextField("Habit Name", text: $newName)
-                    .modifier(TextFieldClearButton(text: $newName))
+                    //.modifier(TextFieldClearButton(text: $newName))
                     .focused($focusedField, equals: .nameField)
+                    .textFieldClearButton(text: $newName)
                     
                 Section{
                     Picker("How many times per day", selection: $newGoalCount){
@@ -72,7 +80,7 @@ struct EditHabitView: View {
                     newGoalCount = inHabit.goalCount - 1
                     editingHabit = true
                 } else {
-                    //This focus is delayed because the sheet presentation animation prevents teh focus field from functioning for about 0.6 seconds
+                    //This focus is delayed because the sheet presentation animation prevents the focus field from functioning for about 0.6 seconds
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.65)
                     {
                         focusedField = .nameField

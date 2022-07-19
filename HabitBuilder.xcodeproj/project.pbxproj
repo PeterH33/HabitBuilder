@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C084D212827286F00A02567 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C084D202827286F00A02567 /* Habits.swift */; };
+		4C76E4472881B42600391F50 /* PeteBits in Frameworks */ = {isa = PBXBuildFile; productRef = 4C76E4462881B42600391F50 /* PeteBits */; };
 		4CBFC28827B1A310000A8226 /* EditHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBFC28727B1A310000A8226 /* EditHabitView.swift */; };
 		4CF03FC12829E65100CD1269 /* FileManagerDecodeEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF03FC02829E65100CD1269 /* FileManagerDecodeEncode.swift */; };
 		D04681CF27AC8DA500A75DA5 /* HabitBuilderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04681CE27AC8DA500A75DA5 /* HabitBuilderApp.swift */; };
@@ -32,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C76E4472881B42600391F50 /* PeteBits in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,9 @@
 			dependencies = (
 			);
 			name = HabitBuilder;
+			packageProductDependencies = (
+				4C76E4462881B42600391F50 /* PeteBits */,
+			);
 			productName = HabitBuilder;
 			productReference = D04681CB27AC8DA500A75DA5 /* HabitBuilder.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +125,9 @@
 				Base,
 			);
 			mainGroup = D04681C227AC8DA500A75DA5;
+			packageReferences = (
+				4C76E4452881B42600391F50 /* XCRemoteSwiftPackageReference "PeteBits" */,
+			);
 			productRefGroup = D04681CC27AC8DA500A75DA5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -355,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C76E4452881B42600391F50 /* XCRemoteSwiftPackageReference "PeteBits" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PeterH33/PeteBits";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C76E4462881B42600391F50 /* PeteBits */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C76E4452881B42600391F50 /* XCRemoteSwiftPackageReference "PeteBits" */;
+			productName = PeteBits;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D04681C327AC8DA500A75DA5 /* Project object */;
 }

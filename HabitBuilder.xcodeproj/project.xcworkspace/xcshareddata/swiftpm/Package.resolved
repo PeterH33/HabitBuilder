@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "petebits",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/PeterH33/PeteBits",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1b286ee8f6242a17259660048d15baba2f1859b5"
+      }
+    }
+  ],
+  "version" : 2
+}

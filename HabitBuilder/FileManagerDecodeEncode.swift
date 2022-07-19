@@ -4,6 +4,7 @@
 //
 //  Created by Peter Hartnett on 4/16/22.
 //
+//This code exists in the PeteBits package now, but is included here for the original implementation.
 
 import Foundation
 

@@ -10,7 +10,7 @@
 //TODO: Make the colors more pleasant
 //TODO: make a small blip or haptic feedback to incrementing a tile
 //TODO: Add in the notification system
-//TODO: Make some system that spreads out the executions over a defined length fo the day
+//TODO: Make some system that spreads out the executions over a defined length of the day
 //TODO: Visuals for clicks, some sort of rewards system.
 //TODO: App Icon
 
